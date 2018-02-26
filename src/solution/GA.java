@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class GA
 {
     private static int N;
-    private static int[][] distancesMatrix; //BetweenLocations
-    private static int[][] flowsMatrix; //BetweenFacilities
+    private int[][] distancesMatrix; //BetweenLocations
+    private int[][] flowsMatrix; //BetweenFacilities
 
     /**
      * Constructor for create GA class with QAP data random determined random N
