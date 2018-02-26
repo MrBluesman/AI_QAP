@@ -55,7 +55,8 @@ public class Population
     {
         for(int i = 0; i < POP_SIZE; i++)
         {
-            individuals.add(new Individual(12));
+            //new Individual with static N value from GA class
+            individuals.add(new Individual(GA.getN()));
         }
     }
 
@@ -66,5 +67,6 @@ public class Population
             elem2.printChromosome();
             System.out.println();
         }
+
     }
 }

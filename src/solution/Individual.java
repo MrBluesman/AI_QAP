@@ -97,12 +97,22 @@ public class Individual
     //DO ZROBIENIA
 
     /**
-     * Calculates a assigment cost of chromosome
+     * Calculates a assigment cost of chromosome (RATE FUNCTION)
      * @return assignment cost of chromosome (proposal solution)
      */
     public int getAssignmentCost()
     {
         int assignmentCost = 0;
+
+        for(int i = 0; i < GA.getN(); i++)
+        {
+            for(int j = i + 1; j < GA.getN(); j++)
+            {
+                //distance matrix * flows depended on individuals chromosome
+                assignmentCost += GA.getDistancesMatrix()[i][j] * GA.getFlowsMatrix()[chromosome.get(i)][chromosome.get(j)];
+            }
+        }
+
         return assignmentCost;
     }
 }

@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class GA
 {
     private static int N;
-    private int[][] distancesMatrix; //BetweenLocations
-    private int[][] flowsMatrix; //BetweenFacilities
+    private static int[][] distancesMatrix; //BetweenLocations
+    private static int[][] flowsMatrix; //BetweenFacilities
 
     /**
      * Constructor for create GA class with QAP data random determined random N
@@ -104,7 +104,7 @@ public class GA
      * N setter
      * @param _N new size of the problem to assign
      */
-    public void setN(int _N)
+    public static void setN(int _N)
     {
         N = _N;
     }
@@ -114,7 +114,7 @@ public class GA
      * N getter
      * @return N size of the problem
      */
-    public int getN()
+    public static int getN()
     {
         return N;
     }
@@ -123,7 +123,7 @@ public class GA
      * distancesMatrix setter
      * @param _distanceMatrix new matrix of distances between locations to assign
      */
-    public void setDistancesMatrix(int[][] _distanceMatrix)
+    public static void setDistancesMatrix(int[][] _distanceMatrix)
     {
         distancesMatrix = _distanceMatrix;
     }
@@ -132,7 +132,7 @@ public class GA
      * distancesMatrix getter
      * @return matrix of distances between locations
      */
-    public int[][] getDistancesMatrix()
+    public static int[][] getDistancesMatrix()
     {
         return distancesMatrix;
     }
@@ -141,7 +141,7 @@ public class GA
      * flowsMatrix setter
      * @param _flowsMatrix new matrix of flows between facilities to assign
      */
-    public void setFlowsMatrix(int[][] _flowsMatrix)
+    public static void setFlowsMatrix(int[][] _flowsMatrix)
     {
         flowsMatrix = _flowsMatrix;
     }
@@ -150,7 +150,7 @@ public class GA
      * flowsMatrix getter
      * @return matrix of flows between facilities
      */
-    public int[][] getFlowsMatrix()
+    public static int[][] getFlowsMatrix()
     {
         return flowsMatrix;
     }
