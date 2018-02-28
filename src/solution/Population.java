@@ -6,27 +6,35 @@ import java.util.Random;
 
 public class Population
 {
-    private static int POP_SIZE;
-    private List<Individual> individuals;
-    private static Random random;
+    private static int POP_SIZE;            //Population size
+    private static double Px;                  //Crossover propability
+    private static double Pm;                  //Mutation propability
+    private List<Individual> individuals;   //Individuals of population
+    private static Random random;           //Random object used to draw a individuals or propability randomly
 
     /**
-     * Constructor for create a population of 100 individuals
+     * Constructor for create a population of 100 individuals with standard propability values
      */
     Population()
     {
         POP_SIZE = 100;
+        Px = 0.07;
+        Pm = 0.01;
         individuals = new ArrayList<>(POP_SIZE);
         random = new Random();
     }
 
     /**
-     * Constructor for create a population of @_popSize individuals
+     * Constructor for create a population of @_popSize individuals with propability values passed by args (_Px, _Pm)
      * @param _popSize size of population
+     * @param _Px Crossover propability
+     * @param _Pm Mutation propability
      */
-    Population(int _popSize)
+    Population(int _popSize, double _Px, double _Pm)
     {
         POP_SIZE = _popSize;
+        Px = _Px;
+        Pm = _Pm;
         individuals = new ArrayList<>(POP_SIZE);
         random = new Random();
     }
@@ -47,6 +55,60 @@ public class Population
     public List<Individual> getIndividuals()
     {
         return individuals;
+    }
+
+    /**
+     * POP_SIZE setter
+     * @param _popSize new size of the population
+     */
+    public static void setPopSize(int _popSize)
+    {
+        POP_SIZE = _popSize;
+    }
+
+    /**
+     * POP_SIZE getter
+     * @return size of the population
+     */
+    public static int getPopSize()
+    {
+        return POP_SIZE;
+    }
+
+    /**
+     * Px setter
+     * @param _Px new crossover propability
+     */
+    public static void setPx(double _Px)
+    {
+        Px = _Px;
+    }
+
+    /**
+     * Px getter
+     * @return crossover propability
+     */
+    public static double getPx()
+    {
+        return Px;
+    }
+
+    /**
+     * Pm setter
+     * @param _Pm new mutation propability
+     */
+    public static void setPm(double _Pm)
+    {
+        Pm = _Pm;
+    }
+
+    /**
+     * Px getter
+     * @return mutation propability
+     */
+    public static double getPm()
+    {
+        return Pm;
     }
 
     //-------------------------------------------------------------------------------------------
@@ -71,7 +133,7 @@ public class Population
     public Population selection(int _tSize)
     {
         //Population newPopulation = new Population(popSize, Px, Pm);
-        Population newPopulation = new Population(POP_SIZE);
+        Population newPopulation = new Population(POP_SIZE, Px, Pm);
         int newPopSize = 0;
         while(newPopSize < POP_SIZE)
         {
@@ -115,6 +177,34 @@ public class Population
             }
         }
         return tournamentGroup;
+    }
+
+    /**
+     * Crossovers the individuals of population based on cross propability
+     */
+    public void crossover()
+    {
+        Individual ind1 = null;
+        Individual ind2 = null;
+
+        for(int i = individuals.size() - 1; i >= 1; i--) //at least 2 individuals is needed
+        {
+            //Is this individual can be crosseoveredd with the other
+            boolean isCrossover = random.nextDouble() < Px;
+            if(isCrossover)
+            {
+                //get this Individual + next random to crossover
+                ind1 = individuals.get(i);
+                individuals.remove(ind1);
+                ind2 = individuals.get(random.nextInt(individuals.size()));
+                individuals.remove(ind2);
+
+                List<Individual> children = ind1.crossPMX(ind2);
+                individuals.add(children.get(0));
+                individuals.add(children.get(1));
+                i--;
+            }
+        }
     }
 
     public void printPopulation()
