@@ -16,14 +16,15 @@ public class Test
 //        n.printChromosome();
         System.out.println();
         //System.out.println("Populations:");
-        Population p = new Population(100, 0.7, 0.01);
+        Population p = new Population(100, 0.7, 0.1);
         p.initialize();
         //p.getTournamentGroup(10);
         p.selection(2);
-        p.printPopulation();
+//        p.printPopulation();
         System.out.println();
         p.crossover();
-        p.printPopulation();
+        p.mutation();
+//        p.printPopulation();
 //        System.out.println();
 //        p.getIndividuals().get(0).printChromosome();
 //        System.out.println();

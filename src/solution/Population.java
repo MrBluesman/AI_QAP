@@ -207,6 +207,17 @@ public class Population
         }
     }
 
+    public void mutation()
+    {
+        for (Individual ind : individuals)
+        {
+            double check = random.nextDouble();
+            boolean isMutation = check < Pm;
+            //System.out.println(check + " " + isMutation);
+            if (isMutation) ind.swapMutate(0.45);
+        }
+    }
+
     public void printPopulation()
     {
         for(Individual elem2 : individuals)

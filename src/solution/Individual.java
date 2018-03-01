@@ -218,7 +218,7 @@ public class Individual
     }
 
     /**
-     * Swap genes beetwen 2 Individuals at selected position
+     * Swap genes beetween 2 Individuals at selected position
      * @param _ind1 Individual 1
      * @param _ind2 Individual 2
      * @param _position swap position
@@ -228,6 +228,19 @@ public class Individual
         Integer temp = _ind1.chromosome.get(_position);
         _ind1.chromosome.set(_position, _ind2.chromosome.get(_position));
         _ind2.chromosome.set(_position, temp);
+    }
+
+    /**
+     * Swap genes in 1 Individual - position1 with position2
+     * @param _ind Individual which genes will be swapped
+     * @param _position1 position of first gene to swap with second
+     * @param _position2 position of second gene to swap with first
+     */
+    private void swapGenes(Individual _ind, int _position1, int _position2)
+    {
+        Integer temp = _ind.chromosome.get(_position1);
+        _ind.chromosome.set(_position1, _ind.chromosome.get(_position2));
+        _ind.chromosome.set(_position2, temp);
     }
 
     /**
@@ -252,6 +265,23 @@ public class Individual
             {
                 _ch2.chromosome.set(i, _ch1ReplaceList.get(_ch2ReplaceList.indexOf(_ch2.chromosome.get(i))));
             }
+        }
+    }
+
+    /**
+     * Mutetes by swap genes in Individuals chromosome
+     * @param _percOfGenesToM Percentage of genes will be swapped
+     */
+    public void swapMutate(double _percOfGenesToM)
+    {
+        int genesToMutate = (int) (this.chromosomeSize * _percOfGenesToM/2) * 2;
+        Random rand = new Random();
+
+        for(int i = 0; i < genesToMutate; i += 2)
+        {
+            int firstPosToSwap = rand.nextInt(this.chromosomeSize);  //first position to swap
+            int secondPosToSwap = rand.nextInt(this.chromosomeSize); //second position to swap
+            swapGenes(this, firstPosToSwap, secondPosToSwap);
         }
     }
 }
