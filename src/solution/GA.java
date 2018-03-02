@@ -6,9 +6,9 @@ import java.io.PrintWriter;
 public class GA
 {
     private static final int POP_SIZE = 100;      //Population size
-    private static final int GEN_LENGTH = 50;    //Numbers of generations of population
-    private static final double PX = 0.7;        //Crossover propability
-    private static final double PM = 0.01;        //Mutation propability
+    private static final int GEN_LENGTH = 100;    //Numbers of generations of population
+    private static final double PX = 0.5;        //Crossover propability
+    private static final double PM = 0.1;        //Mutation propability
     private static final int T_SIZE = 10;         //Tournament size
     private static int TEST_NUMBERS = 10;         //Numbers of test
 

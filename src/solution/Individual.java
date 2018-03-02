@@ -130,9 +130,44 @@ public class Individual
     }
 
     /**
-     * PMX crossover of 2 parents - begets 2 childrens
-     * @param _ind second individual to cross with this
-     * @return list of childrens (2 childrens - new Individuals)
+     * CX crossover of 2 parents - begets 1 child
+     * @param _ind second Individual to cross with this Individual
+     * @return child of 2 parents crossover - new Individual
+     */
+    public Individual crossCX(Individual _ind)
+    {
+        Individual child = new Individual(QAP.getN());
+        child.getChromosome().clear();
+        List<Integer> positionsToCopy = new ArrayList<>();
+        int cycleStart = this.getChromosome().get(0);
+        int relationStart = cycleStart;
+        int cycleEnd = _ind.getChromosome().get(0);
+        int relationEnd = cycleEnd;
+        positionsToCopy.add(this.getChromosome().indexOf(relationStart));
+
+
+        while((relationStart != relationEnd) && (cycleStart != cycleEnd))
+        {
+            relationStart = cycleEnd;
+            relationEnd = _ind.getChromosome().get(this.getChromosome().indexOf(relationStart));
+            cycleEnd = relationEnd;
+            System.out.println(relationStart + " -> " + relationEnd);
+            positionsToCopy.add(this.getChromosome().indexOf(relationStart));
+        }
+
+
+        for(int i = 0; i < this.getChromosomeSize(); i++)
+        {
+            child.getChromosome().add(positionsToCopy.contains(i) ? this.getChromosome().get(i) : _ind.getChromosome().get(i));
+
+        }
+        return child;
+    }
+
+    /**
+     * PMX crossover of 2 parents - begets 2 children
+     * @param _ind second Individual to cross with this Individual
+     * @return list of children (2 children - new Individuals)
      */
     public List<Individual> crossPMX(Individual _ind)
     {
@@ -254,7 +289,7 @@ public class Individual
      */
     private void repairPMXchildren(int _startPoint, int _endPoint, Individual _ch1, Individual _ch2, List<Integer> _ch1ReplaceList, List<Integer> _ch2ReplaceList)
     {
-        for(int i=_startPoint; i < _endPoint; i++)
+        for(int i = _startPoint; i < _endPoint; i++)
         {
             if(_ch1ReplaceList.contains(_ch1.chromosome.get(i)))
             {

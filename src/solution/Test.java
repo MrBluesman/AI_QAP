@@ -16,24 +16,28 @@ public class Test
 //        n.printChromosome();
         System.out.println();
         //System.out.println("Populations:");
-        Population p = new Population(100, 0.7, 0.1);
+        Population p = new Population(2, 0.7, 0.1);
         p.initialize();
         //p.getTournamentGroup(10);
         p.selection(2);
 //        p.printPopulation();
         System.out.println();
-        p.crossover();
-        p.mutation();
-//        p.printPopulation();
-//        System.out.println();
-//        p.getIndividuals().get(0).printChromosome();
-//        System.out.println();
-//        p.getIndividuals().get(1).printChromosome();
-//        System.out.println();
-//        System.out.println();
-//
-//        p.getIndividuals().get(0).crossPMX(p.getIndividuals().get(1));
-//
+        //p.crossover();
+        //p.mutation();
+        //p.printPopulation();
+        System.out.println();
+        p.getIndividuals().get(0).printChromosome();
+        System.out.println();
+        p.getIndividuals().get(1).printChromosome();
+        System.out.println();
+        System.out.println();
+
+        //p.getIndividuals().get(0).crossPMX(p.getIndividuals().get(1));
+        Individual ch = p.getIndividuals().get(0).crossCX(p.getIndividuals().get(1));
+
+        ch.printChromosome();
+        System.out.println();
+
 //        p.getIndividuals().get(0).printChromosome();
 //        System.out.println();
 //        p.getIndividuals().get(1).printChromosome();

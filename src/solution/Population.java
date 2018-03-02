@@ -187,24 +187,55 @@ public class Population
         Individual ind1 = null;
         Individual ind2 = null;
 
-        for(int i = individuals.size() - 1; i >= 1; i--) //at least 2 individuals is needed
+        List<Individual> crossoveredPop = new ArrayList<>();
+        crossoveredPop.addAll(this.getIndividuals());
+        this.getIndividuals().clear();
+
+
+        for(int i = crossoveredPop.size() - 1; i >= 0 ; i--)
         {
-            //Is this individual can be crosseoveredd with the other
+            System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
+
             boolean isCrossover = random.nextDouble() < Px;
             if(isCrossover)
             {
-                //get this Individual + next random to crossover
-                ind1 = individuals.get(i);
-                individuals.remove(ind1);
-                ind2 = individuals.get(random.nextInt(individuals.size()));
-                individuals.remove(ind2);
-
-                List<Individual> children = ind1.crossPMX(ind2);
-                individuals.add(children.get(0));
-                individuals.add(children.get(1));
-                i--;
+                ind1 = crossoveredPop.get(i);
+                ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
+                crossoveredPop.remove(ind1);
+                Individual child = ind1.crossCX(ind2);
+                this.getIndividuals().add(child);
+            }
+            else
+            {
+                this.getIndividuals().add(crossoveredPop.get(i));
             }
         }
+
+
+
+//        for(int i = individuals.size() - 1; i >= 0; i--) //at least 2 individuals is needed  // >= 1 for PMX !!!!
+//        {
+//            //Is this individual can be crosseoveredd with the other
+//            boolean isCrossover = random.nextDouble() < Px;
+//            if(isCrossover)
+//            {
+////                //get this Individual + next random to crossover
+////                ind1 = individuals.get(i);
+////                individuals.remove(ind1);
+////                ind2 = individuals.get(random.nextInt(individuals.size()));
+////                individuals.remove(ind2);
+////
+////                List<Individual> children = ind1.crossPMX(ind2);
+////                individuals.add(children.get(0));
+////                individuals.add(children.get(1));
+////                i--;
+//                ind1 = individuals.get(i);
+//                individuals.remove(ind1);
+//                ind2 = individuals.get(random.nextInt(individuals.size()));
+//                Individual child = ind1.crossCX(ind2);
+//                individuals.add(child);
+//            }
+//        }
     }
 
     public void mutation()
