@@ -211,8 +211,8 @@ public class Individual
         }
 
         //repair based on replace/repair lists
-        repairPMXchildrens(0, xPoint1, child1, child2, ch1ReplaceList, ch2ReplaceList);
-        repairPMXchildrens(xPoint2 + 1, child1.chromosomeSize, child1, child2, ch1ReplaceList, ch2ReplaceList);
+        repairPMXchildren(0, xPoint1, child1, child2, ch1ReplaceList, ch2ReplaceList);
+        repairPMXchildren(xPoint2 + 1, child1.chromosomeSize, child1, child2, ch1ReplaceList, ch2ReplaceList);
 
         return children;
     }
@@ -252,7 +252,7 @@ public class Individual
      * @param _ch1ReplaceList replace/repair list for firs children (no. 1)
      * @param _ch2ReplaceList replace/repair list for firs children (no. 1)
      */
-    private void repairPMXchildrens(int _startPoint, int _endPoint, Individual _ch1, Individual _ch2, List<Integer> _ch1ReplaceList, List<Integer> _ch2ReplaceList)
+    private void repairPMXchildren(int _startPoint, int _endPoint, Individual _ch1, Individual _ch2, List<Integer> _ch1ReplaceList, List<Integer> _ch2ReplaceList)
     {
         for(int i=_startPoint; i < _endPoint; i++)
         {

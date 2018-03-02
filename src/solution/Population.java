@@ -218,6 +218,53 @@ public class Population
         }
     }
 
+    /**
+     * Calculates average assignment cost of whole population
+     * @return average assignment cost of whole population
+     */
+    public double getAverageAssignmentCost()
+    {
+        double assignmentCost = 0.0;
+        for (Individual ind : this.individuals)
+        {
+            assignmentCost += ind.getAssignmentCost();
+        }
+        return assignmentCost / (1.0 * this.individuals.size());
+    }
+
+    /**
+     * Finds the best Individual in population (Individual with the least assignment cost)
+     * @return Individual with the least assignment cost
+     */
+    public Individual getBestIndividual()
+    {
+        Individual theBestInd = this.individuals.get(0);
+        for(int i = 1; i < this.individuals.size(); i++)
+        {
+            if(individuals.get(i).getAssignmentCost() < theBestInd.getAssignmentCost())
+                theBestInd = individuals.get(i);
+        }
+        return theBestInd;
+    }
+
+    /**
+     * Finds the worst Individual in population (Individual with the most expensive assignment cost)
+     * @return Individual with the most expensive assignment cost
+     */
+    public Individual getWorstIndividual()
+    {
+        Individual theWorstInd = this.individuals.get(0);
+        for(int i = 1; i<this.individuals.size(); i++)
+        {
+            if(individuals.get(i).getAssignmentCost() > theWorstInd.getAssignmentCost())
+                theWorstInd = individuals.get(i);
+        }
+        return theWorstInd;
+    }
+
+    /**
+     * Prints a population - Individual by Individual
+     */
     public void printPopulation()
     {
         for(Individual elem2 : individuals)
