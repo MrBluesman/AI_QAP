@@ -365,4 +365,32 @@ public class Individual
             swapGenes(this, firstPosToSwap, secondPosToSwap);
         }
     }
+
+    /**
+     * Mutates Individual by inversion
+     */
+    public void inversionMutate()
+    {
+        //Randomized 2 inversion points
+        Random rand = new Random();
+        int middlePoint = chromosomeSize / 2;
+        int iPoint1 = rand.nextInt(middlePoint);
+        int iPoint2 = rand.nextInt(chromosomeSize - middlePoint) + middlePoint;
+
+        List<Integer> invertionPart = new ArrayList<>();
+
+        //Invert to invertionPart - auxiliart list
+        for(int i = iPoint2; i >= iPoint1; i--) invertionPart.add(this.getChromosome().get(i));
+
+        //Set part between iPoints to inverted part
+        int invertPosition = 0;
+        for(int i = iPoint1; i <= iPoint2; i++)
+        {
+            this.getChromosome().set(i, invertionPart.get(invertPosition));
+            invertPosition++;
+        }
+
+
+        System.out.println(iPoint1 + " | " + iPoint2);
+    }
 }

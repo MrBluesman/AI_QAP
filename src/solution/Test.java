@@ -26,22 +26,29 @@ public class Test
         //p.crossover();
         //p.mutation();
         //p.printPopulation();
-        System.out.println();
+//        System.out.println();
+//        p.getIndividuals().get(0).printChromosome();
+//        System.out.println();
+//        p.getIndividuals().get(1).printChromosome();
+//        System.out.println();
+//        System.out.println();
+
         p.getIndividuals().get(0).printChromosome();
         System.out.println();
-        p.getIndividuals().get(1).printChromosome();
         System.out.println();
+        p.getIndividuals().get(0).inversionMutate();
         System.out.println();
+        p.getIndividuals().get(0).printChromosome();
 
         //List<Individual> ch = p.getIndividuals().get(0).crossPMX(p.getIndividuals().get(1));
-        Individual ch = p.getIndividuals().get(0).crossOX(p.getIndividuals().get(1));
+//        Individual ch = p.getIndividuals().get(0).crossOX(p.getIndividuals().get(1));
 
 //        ch.get(0).printChromosome();
 //        System.out.println();
 //        ch.get(1).printChromosome();
 
-        ch.printChromosome();
-        System.out.println();
+//        ch.printChromosome();
+//        System.out.println();
 
 //        p.getIndividuals().get(0).printChromosome();
 //        System.out.println();

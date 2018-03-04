@@ -242,7 +242,8 @@ public class Population
             double check = random.nextDouble();
             boolean isMutation = check < Pm;
             //System.out.println(check + " " + isMutation);
-            if (isMutation) ind.swapMutate(0.45);
+            //if (isMutation) ind.swapMutate(0.45);
+            if (isMutation) ind.inversionMutate();
         }
     }
 
