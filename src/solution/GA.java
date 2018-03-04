@@ -7,7 +7,7 @@ public class GA
 {
     private static final int POP_SIZE = 100;      //Population size
     private static final int GEN_LENGTH = 100;    //Numbers of generations of population
-    private static final double PX = 0.5;        //Crossover propability
+    private static final double PX = 0.7;        //Crossover propability
     private static final double PM = 0.1;        //Mutation propability
     private static final int T_SIZE = 10;         //Tournament size
     private static int TEST_NUMBERS = 10;         //Numbers of test
@@ -94,11 +94,11 @@ public class GA
             saveFile.println();
         }
 
-        System.out.println("Sredni najgorszy: " + worstIndOfPopulation[GEN_LENGTH - 1]);
-        System.out.println("Sredni osobnik: " + averageIndOfPopulation[GEN_LENGTH - 1]);
-        System.out.println("Sredni najlepszy: " + bestIndOfPopulation[GEN_LENGTH - 1]);
-        System.out.println("Najlepszy osobnik: " + bestInd.getAssignmentCost());
-        System.out.println("Odchylenie: " + deviationOfPopulation / TEST_NUMBERS);
+        System.out.println("Average of worst Individuals: " + worstIndOfPopulation[GEN_LENGTH - 1]);
+        System.out.println("Average of medium Individuals: " + averageIndOfPopulation[GEN_LENGTH - 1]);
+        System.out.println("Average of best Individuals: " + bestIndOfPopulation[GEN_LENGTH - 1]);
+        System.out.println("The best found Individual: " + bestInd.getAssignmentCost());
+        System.out.println("Daviation: " + deviationOfPopulation / TEST_NUMBERS);
         System.out.println();
         bestInd.printChromosome();
 

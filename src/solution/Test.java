@@ -1,6 +1,7 @@
 package solution;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public class Test
 {
@@ -32,8 +33,12 @@ public class Test
         System.out.println();
         System.out.println();
 
-        //p.getIndividuals().get(0).crossPMX(p.getIndividuals().get(1));
-        Individual ch = p.getIndividuals().get(0).crossCX(p.getIndividuals().get(1));
+        //List<Individual> ch = p.getIndividuals().get(0).crossPMX(p.getIndividuals().get(1));
+        Individual ch = p.getIndividuals().get(0).crossOX(p.getIndividuals().get(1));
+
+//        ch.get(0).printChromosome();
+//        System.out.println();
+//        ch.get(1).printChromosome();
 
         ch.printChromosome();
         System.out.println();

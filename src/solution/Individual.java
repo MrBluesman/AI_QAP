@@ -145,7 +145,6 @@ public class Individual
         int relationEnd = cycleEnd;
         positionsToCopy.add(this.getChromosome().indexOf(relationStart));
 
-
         while((relationStart != relationEnd) && (cycleStart != cycleEnd))
         {
             relationStart = cycleEnd;
@@ -155,12 +154,59 @@ public class Individual
             positionsToCopy.add(this.getChromosome().indexOf(relationStart));
         }
 
-
         for(int i = 0; i < this.getChromosomeSize(); i++)
         {
             child.getChromosome().add(positionsToCopy.contains(i) ? this.getChromosome().get(i) : _ind.getChromosome().get(i));
 
         }
+        return child;
+    }
+
+    /**
+     * OX crossover of 2 parents - begets 1 child
+     * @param _ind second Individual to cross with this Individual
+     * @return child of 2 parents crossover - new Individual
+     */
+    public Individual crossOX(Individual _ind)
+    {
+        Individual child = new Individual(QAP.getN());
+        child.getChromosome().clear();
+
+        //Randomized 2 cross points
+        Random rand = new Random();
+        int middlePoint = chromosomeSize / 2;
+        int xPoint1 = rand.nextInt(middlePoint - 1) + 1;
+        int xPoint2 = rand.nextInt(chromosomeSize - middlePoint) + middlePoint;
+
+        //List of used and unused elements to repair if it's necessary
+        List<Integer> usedGenes = new ArrayList<>();
+        List<Integer> unusedGenes = new ArrayList<>(this.getChromosome());
+
+        //Copy genes restricted by xPoints
+        List<Integer> genesToCopy = new ArrayList<>();
+        for(int i = xPoint1; i < xPoint2; i++)
+        {
+            genesToCopy.add(this.getChromosome().get(i));
+        }
+
+        for(int i = 0; i < this.getChromosomeSize(); i++)
+        {
+            Integer copiedGene = null;
+            if(genesToCopy.contains(_ind.getChromosome().get(i)) || genesToCopy.contains(this.getChromosome().get(i)))
+            {
+                copiedGene = usedGenes.contains(this.getChromosome().get(i)) ? unusedGenes.get(0) : this.getChromosome().get(i);
+            }
+            else
+            {
+                copiedGene = usedGenes.contains(_ind.getChromosome().get(i)) ? unusedGenes.get(0) : _ind.getChromosome().get(i);
+            }
+
+            //setting a chromosome and updating usedGenes and unusedGenes
+            child.getChromosome().add(copiedGene);
+            usedGenes.add(copiedGene);
+            unusedGenes.remove(copiedGene);
+        }
+
         return child;
     }
 
