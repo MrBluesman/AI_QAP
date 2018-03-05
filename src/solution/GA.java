@@ -23,7 +23,7 @@ public class GA
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        QAP data = new QAP("had20.dat");
+        QAP data = new QAP("had9.dat");
 
         double average = 0;
         double deviation = 0;
@@ -54,7 +54,7 @@ public class GA
             {
                 actualGeneration++;
                 population = population.selection(T_SIZE);
-                population.crossover();
+                population.crossover("PMX");
                 population.mutation();
 
                 average = population.getAverageAssignmentCost();

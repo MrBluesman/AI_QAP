@@ -218,8 +218,9 @@ public class Population
 
     /**
      * Crossovers the individuals of population based on cross probability
+     * @param _method crossover method which will be used to beget children to new population
      */
-    public void crossover()
+    public void crossover(String _method)
     {
         Individual ind1;
         Individual ind2;
@@ -227,48 +228,55 @@ public class Population
         List<Individual> crossoveredPop = new ArrayList<>(this.getIndividuals());
         this.getIndividuals().clear();
 
-
-//        for(int i = crossoveredPop.size() - 1; i >= 0 ; i--)
-//        {
-//            System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
-//
-//            boolean isCrossover = random.nextDouble() < Px;
-//            if(isCrossover)
-//            {
-//                ind1 = crossoveredPop.get(i);
-//                ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
-//                crossoveredPop.remove(ind1);
-//                //Individual child = ind1.crossCX(ind2);
-//                Individual child = ind1.crossOX(ind2);
-//                this.getIndividuals().add(child);
-//            }
-//            else
-//            {
-//                this.getIndividuals().add(crossoveredPop.get(i));
-//            }
-//        }
-
-        for(int i = crossoveredPop.size() - 1; i >= 0 ; i -= 2)
+        switch(_method)
         {
-            //System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
-            ind1 = crossoveredPop.get(i);
-            ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
+            case "PMX":
+            {
+                for(int i = crossoveredPop.size() - 1; i >= 0 ; i -= 2)
+                {
+                    //System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
+                    ind1 = crossoveredPop.get(i);
+                    ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
 
-            boolean isCrossover = random.nextDouble() < Px;
-            if(isCrossover)
-            {
-                crossoveredPop.remove(ind1);
-                crossoveredPop.remove(ind2);
-                List<Individual> children = ind1.crossPMX(ind2);
-                this.getIndividuals().addAll(children);
+                    boolean isCrossover = random.nextDouble() < Px;
+                    if(isCrossover)
+                    {
+                        crossoveredPop.remove(ind1);
+                        crossoveredPop.remove(ind2);
+                        List<Individual> children = ind1.crossPMX(ind2);
+                        this.getIndividuals().addAll(children);
+                    }
+                    else
+                    {
+                        this.getIndividuals().add(ind1);
+                        this.getIndividuals().add(ind2);
+                    }
+                }
+                break;
             }
-            else
+
+            default:
             {
-                this.getIndividuals().add(ind1);
-                this.getIndividuals().add(ind2);
+                for(int i = crossoveredPop.size() - 1; i >= 0 ; i--)
+                {
+                   // System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
+                    boolean isCrossover = random.nextDouble() < Px;
+                    if(isCrossover)
+                    {
+                        ind1 = crossoveredPop.get(i);
+                        ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
+                        crossoveredPop.remove(ind1);
+                        //Individual child = ind1.crossCX(ind2);
+                        Individual child = _method.equals("CX") ? ind1.crossCX(ind2) : ind1.crossOX(ind2);
+                        this.getIndividuals().add(child);
+                    }
+                    else
+                    {
+                        this.getIndividuals().add(crossoveredPop.get(i));
+                    }
+                }
             }
         }
-
     }
 
     public void mutation()

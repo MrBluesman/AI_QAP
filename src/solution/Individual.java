@@ -150,7 +150,7 @@ public class Individual
             relationStart = cycleEnd;
             relationEnd = _ind.getChromosome().get(this.getChromosome().indexOf(relationStart));
             cycleEnd = relationEnd;
-            System.out.println(relationStart + " -> " + relationEnd);
+            //System.out.println(relationStart + " -> " + relationEnd);
             positionsToCopy.add(this.getChromosome().indexOf(relationStart));
         }
 
