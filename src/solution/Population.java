@@ -169,12 +169,16 @@ public class Population
         //creating an list with probabilities to roll
         double popOverallAssignmentCost = this.getOverallAssignmentCost();
         double[] rouletteProb = new double[POP_SIZE];
+        int theWorstAssignmentcost = this.getWorstIndividual().getAssignmentCost();
         Double indProd = 0.0;
         for(int i = 0; i < POP_SIZE; i++)
         {
-            indProd += (this.getIndividuals().get(i).getAssignmentCost() / popOverallAssignmentCost);
+            //indProd += (this.getIndividuals().get(i).getAssignmentCost() / popOverallAssignmentCost);
+            indProd += (theWorstAssignmentcost - this.getIndividuals().get(i).getAssignmentCost() + 1 / (popOverallAssignmentCost + 1));
             rouletteProb[i] = indProd;
         }
+
+        //(Wartość najgorszego osobnika-Wartość danego osobnika+1)/(suma wartości wszystkich osobników+1)
 
         int newPopSize = 0;
         while(newPopSize < POP_SIZE)
@@ -279,7 +283,7 @@ public class Population
         }
     }
 
-    public void mutation()
+    public void mutation(String _method)
     {
         for (Individual ind : individuals)
         {
@@ -287,7 +291,11 @@ public class Population
             boolean isMutation = check < Pm;
             //System.out.println(check + " " + isMutation);
             //if (isMutation) ind.swapMutate(0.45);
-            if (isMutation) ind.inversionMutate();
+            if (isMutation)
+            {
+                if(_method.equals("swap")) ind.swapMutate(0.45);
+                else ind.inversionMutate();
+            }
         }
     }
 

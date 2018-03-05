@@ -23,7 +23,8 @@ public class GA
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        QAP data = new QAP("had9.dat");
+        String fileNum = "had20";
+        QAP data = new QAP(fileNum + ".dat");
 
         double average = 0;
         double deviation = 0;
@@ -36,7 +37,7 @@ public class GA
         System.out.println("Flows matrix:");
         data.printMatrix(QAP.getFlowsMatrix());
 
-        PrintWriter outputFile = new PrintWriter("results.csv");
+        PrintWriter outputFile = new PrintWriter(fileNum + ".csv");
 
         bestInd = new Individual(QAP.getN());
 
@@ -55,7 +56,7 @@ public class GA
                 actualGeneration++;
                 population = population.selection(T_SIZE);
                 population.crossover("PMX");
-                population.mutation();
+                population.mutation("swap");
 
                 average = population.getAverageAssignmentCost();
                 averageIndOfPopulation[actualGeneration - 1] += population.getAverageAssignmentCost();

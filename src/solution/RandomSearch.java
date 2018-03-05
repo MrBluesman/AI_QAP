@@ -4,14 +4,14 @@ import java.io.FileNotFoundException;
 
 public class RandomSearch
 {
-    private static final int SEARCH_SIZE = 10000;
+    private static final int SEARCH_SIZE = 1000000;
 
     RandomSearch()
     {}
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        QAP data = new QAP("had9.dat");
+        QAP data = new QAP("had20.dat");
 
         Individual best = new Individual(QAP.getN());
         int counter = 0;
