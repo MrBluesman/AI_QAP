@@ -17,7 +17,7 @@ public class Test
 //        n.printChromosome();
         System.out.println();
         //System.out.println("Populations:");
-        Population p = new Population(2, 0.7, 0.1);
+        Population p = new Population(10, 0.7, 0.1);
         p.initialize();
         //p.getTournamentGroup(10);
         p.selection(2);

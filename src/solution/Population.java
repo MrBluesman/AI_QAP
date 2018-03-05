@@ -1,6 +1,7 @@
 package solution;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class Population
     Population()
     {
         POP_SIZE = 100;
-        Px = 0.07;
+        Px = 0.7;
         Pm = 0.01;
         individuals = new ArrayList<>(POP_SIZE);
         random = new Random();
@@ -132,22 +133,41 @@ public class Population
      */
     public Population selection(int _tSize)
     {
-        //Population newPopulation = new Population(popSize, Px, Pm);
         Population newPopulation = new Population(POP_SIZE, Px, Pm);
+
+        //creating an list with probabilities to roll
+        double popOverallAssignmentCost = this.getOverallAssignmentCost();
+        double[] rouletteProb = new double[POP_SIZE];
+        Double indProd = 0.0;
+        for(int i = 0; i < POP_SIZE; i++)
+        {
+            indProd += (this.getIndividuals().get(i).getAssignmentCost() / popOverallAssignmentCost);
+            rouletteProb[i] = indProd;
+        }
+
+
+
         int newPopSize = 0;
         while(newPopSize < POP_SIZE)
         {
-            ArrayList<Individual> tournamentGroup = this.getTournamentGroup(_tSize);
-            Individual bestIndividual = tournamentGroup.get(0);
-            for (int i = 1; i < _tSize; i++)
-            {
-                if (tournamentGroup.get(i).getAssignmentCost() < bestIndividual.getAssignmentCost())
-                {
-                    bestIndividual = tournamentGroup.get(i);
-                }
-            }
-            newPopulation.individuals.add(new Individual(bestIndividual));
-            //System.out.println(bestIndividual.getAssignmentCost());
+            //roulette wheel
+            double randomFitness = random.nextDouble() * rouletteProb[rouletteProb.length - 1];
+            int index = Arrays.binarySearch(rouletteProb, randomFitness);
+            index = Math.abs(index) - 1;
+            newPopulation.getIndividuals().add(this.getIndividuals().get(index));
+
+            //tournament
+//            ArrayList<Individual> tournamentGroup = this.getTournamentGroup(_tSize);
+//            Individual bestIndividual = tournamentGroup.get(0);
+//            for (int i = 1; i < _tSize; i++)
+//            {
+//                if (tournamentGroup.get(i).getAssignmentCost() < bestIndividual.getAssignmentCost())
+//                {
+//                    bestIndividual = tournamentGroup.get(i);
+//                }
+//            }
+//            newPopulation.getIndividuals().add(new Individual(bestIndividual));
+
             newPopSize++;
         }
 
@@ -258,6 +278,20 @@ public class Population
             assignmentCost += ind.getAssignmentCost();
         }
         return assignmentCost / (1.0 * this.individuals.size());
+    }
+
+    /**
+     * Calculates overall assignment cost of whole population
+     * @return overal assignment cost of whole population
+     */
+    public double getOverallAssignmentCost()
+    {
+        double assignmentCost = 0.0;
+        for (Individual ind : this.individuals)
+        {
+            assignmentCost += ind.getAssignmentCost();
+        }
+        return assignmentCost;
     }
 
     /**
