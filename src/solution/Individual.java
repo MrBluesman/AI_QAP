@@ -191,7 +191,7 @@ public class Individual
 
         for(int i = 0; i < this.getChromosomeSize(); i++)
         {
-            Integer copiedGene = null;
+            Integer copiedGene;
             if(genesToCopy.contains(_ind.getChromosome().get(i)) || genesToCopy.contains(this.getChromosome().get(i)))
             {
                 copiedGene = usedGenes.contains(this.getChromosome().get(i)) ? unusedGenes.get(0) : this.getChromosome().get(i);
@@ -218,8 +218,15 @@ public class Individual
     public List<Individual> crossPMX(Individual _ind)
     {
         //Creating a ArrayList of children based on this Individual (first parent) and second parent passed by _ind
-        Individual child1 = new Individual(this);
-        Individual child2 = new Individual(_ind);
+        Individual child1 = new Individual(QAP.getN()); //this
+        Individual child2 = new Individual(QAP.getN()); //_ind
+
+        for(int i = 0; i < this.getChromosomeSize(); i++)
+        {
+            child1.getChromosome().set(i, this.getChromosome().get(i));
+            child2.getChromosome().set(i, _ind.getChromosome().get(i));
+        }
+
         List<Individual> children = new ArrayList<>();
         children.add(child1);
         children.add(child2);
@@ -325,7 +332,7 @@ public class Individual
     }
 
     /**
-     * Repairs childrens of PMX crossover, is based on repair/replace lists
+     * Repairs children of PMX crossover, is based on repair/replace lists
      * @param _startPoint start index of subchromosome which needs repair
      * @param _endPoint end index of subchromosome which needs repair
      * @param _ch1 first children (no. 1)
@@ -377,20 +384,17 @@ public class Individual
         int iPoint1 = rand.nextInt(middlePoint);
         int iPoint2 = rand.nextInt(chromosomeSize - middlePoint) + middlePoint;
 
-        List<Integer> invertionPart = new ArrayList<>();
+        List<Integer> inversionPart = new ArrayList<>();
 
-        //Invert to invertionPart - auxiliart list
-        for(int i = iPoint2; i >= iPoint1; i--) invertionPart.add(this.getChromosome().get(i));
+        //Invert to inversionPart - auxiliary list
+        for(int i = iPoint2; i >= iPoint1; i--) inversionPart.add(this.getChromosome().get(i));
 
         //Set part between iPoints to inverted part
         int invertPosition = 0;
         for(int i = iPoint1; i <= iPoint2; i++)
         {
-            this.getChromosome().set(i, invertionPart.get(invertPosition));
+            this.getChromosome().set(i, inversionPart.get(invertPosition));
             invertPosition++;
         }
-
-
-        System.out.println(iPoint1 + " | " + iPoint2);
     }
 }

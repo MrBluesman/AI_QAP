@@ -7,10 +7,10 @@ import java.util.Random;
 public class Population
 {
     private static int POP_SIZE;            //Population size
-    private static double Px;                  //Crossover propability
-    private static double Pm;                  //Mutation propability
+    private static double Px;                  //Crossover probability
+    private static double Pm;                  //Mutation probability
     private List<Individual> individuals;   //Individuals of population
-    private static Random random;           //Random object used to draw a individuals or propability randomly
+    private static Random random;           //Random object used to draw a individuals or probability randomly
 
     /**
      * Constructor for create a population of 100 individuals with standard propability values
@@ -77,7 +77,7 @@ public class Population
 
     /**
      * Px setter
-     * @param _Px new crossover propability
+     * @param _Px new crossover probability
      */
     public static void setPx(double _Px)
     {
@@ -86,7 +86,7 @@ public class Population
 
     /**
      * Px getter
-     * @return crossover propability
+     * @return crossover probability
      */
     public static double getPx()
     {
@@ -95,7 +95,7 @@ public class Population
 
     /**
      * Pm setter
-     * @param _Pm new mutation propability
+     * @param _Pm new mutation probability
      */
     public static void setPm(double _Pm)
     {
@@ -104,7 +104,7 @@ public class Population
 
     /**
      * Px getter
-     * @return mutation propability
+     * @return mutation probability
      */
     public static double getPm()
     {
@@ -180,58 +180,57 @@ public class Population
     }
 
     /**
-     * Crossovers the individuals of population based on cross propability
+     * Crossovers the individuals of population based on cross probability
      */
     public void crossover()
     {
-        Individual ind1 = null;
-        Individual ind2 = null;
+        Individual ind1;
+        Individual ind2;
 
-        List<Individual> crossoveredPop = new ArrayList<>();
-        crossoveredPop.addAll(this.getIndividuals());
+        List<Individual> crossoveredPop = new ArrayList<>(this.getIndividuals());
         this.getIndividuals().clear();
 
 
-        for(int i = crossoveredPop.size() - 1; i >= 0 ; i--)
-        {
-            System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
-
-            boolean isCrossover = random.nextDouble() < Px;
-            if(isCrossover)
-            {
-                ind1 = crossoveredPop.get(i);
-                ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
-                crossoveredPop.remove(ind1);
-                //Individual child = ind1.crossCX(ind2);
-                Individual child = ind1.crossOX(ind2);
-                this.getIndividuals().add(child);
-            }
-            else
-            {
-                this.getIndividuals().add(crossoveredPop.get(i));
-            }
-        }
-
-//        for(int i = crossoveredPop.size() - 1; i >= 0 ; i -= 2)
+//        for(int i = crossoveredPop.size() - 1; i >= 0 ; i--)
 //        {
 //            System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
-//            ind1 = crossoveredPop.get(i);
-//            ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
 //
 //            boolean isCrossover = random.nextDouble() < Px;
 //            if(isCrossover)
 //            {
+//                ind1 = crossoveredPop.get(i);
+//                ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
 //                crossoveredPop.remove(ind1);
-//                crossoveredPop.remove(ind2);
-//                List<Individual> children = ind1.crossPMX(ind2);
-//                this.getIndividuals().addAll(children);
+//                //Individual child = ind1.crossCX(ind2);
+//                Individual child = ind1.crossOX(ind2);
+//                this.getIndividuals().add(child);
 //            }
 //            else
 //            {
-//                this.getIndividuals().add(ind1);
-//                this.getIndividuals().add(ind2);
+//                this.getIndividuals().add(crossoveredPop.get(i));
 //            }
 //        }
+
+        for(int i = crossoveredPop.size() - 1; i >= 0 ; i -= 2)
+        {
+            System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
+            ind1 = crossoveredPop.get(i);
+            ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
+
+            boolean isCrossover = random.nextDouble() < Px;
+            if(isCrossover)
+            {
+                crossoveredPop.remove(ind1);
+                crossoveredPop.remove(ind2);
+                List<Individual> children = ind1.crossPMX(ind2);
+                this.getIndividuals().addAll(children);
+            }
+            else
+            {
+                this.getIndividuals().add(ind1);
+                this.getIndividuals().add(ind2);
+            }
+        }
 
     }
 
