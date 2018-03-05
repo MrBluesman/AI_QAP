@@ -213,7 +213,7 @@ public class Population
 
         for(int i = crossoveredPop.size() - 1; i >= 0 ; i -= 2)
         {
-            System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
+            //System.out.println(this.getIndividuals().size() + " | " + crossoveredPop.size());
             ind1 = crossoveredPop.get(i);
             ind2 = crossoveredPop.get(random.nextInt(crossoveredPop.size()));
 

@@ -36,7 +36,7 @@ public class GA
         System.out.println("Flows matrix:");
         data.printMatrix(QAP.getFlowsMatrix());
 
-        PrintWriter saveFile = new PrintWriter("ala.txt");
+        PrintWriter outputFile = new PrintWriter("results.csv");
 
         bestInd = new Individual(QAP.getN());
 
@@ -86,15 +86,17 @@ public class GA
             bestIndOfPopulation[i]    /=  TEST_NUMBERS;
             worstIndOfPopulation[i]   /=  TEST_NUMBERS;
 
-            saveFile.print(worstIndOfPopulation[i]);
-            saveFile.print("\t");
-            saveFile.print(averageIndOfPopulation[i]);
-            saveFile.print("\t");
-            saveFile.print(bestIndOfPopulation[i]);
-            saveFile.println();
+            outputFile.print(i + 1);
+            //outputFile.print("\t");
+            outputFile.print("," + worstIndOfPopulation[i]);
+            //outputFile.print("\t");
+            outputFile.print("," + averageIndOfPopulation[i]);
+            //outputFile.print("\t");
+            outputFile.print(", " + bestIndOfPopulation[i]);
+            outputFile.println();
         }
 
-        System.out.println("Average of worst Individuals: " + worstIndOfPopulation[GEN_LENGTH - 1]);
+        System.out.println("\nAverage of worst Individuals: " + worstIndOfPopulation[GEN_LENGTH - 1]);
         System.out.println("Average of medium Individuals: " + averageIndOfPopulation[GEN_LENGTH - 1]);
         System.out.println("Average of best Individuals: " + bestIndOfPopulation[GEN_LENGTH - 1]);
         System.out.println("The best found Individual: " + bestInd.getAssignmentCost());
@@ -102,6 +104,6 @@ public class GA
         System.out.println();
         bestInd.printChromosome();
 
-        saveFile.close();
+        outputFile.close();
     }
 }
