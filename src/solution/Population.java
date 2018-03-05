@@ -128,10 +128,41 @@ public class Population
 
     /**
      * Selects a Individuals from this population and saves them in the new population for next generation
+     * Using a tournament selection
      * @param _tSize size of the tournament group
      * @return population with selected Individuals by _tSized tournament
      */
     public Population selection(int _tSize)
+    {
+        Population newPopulation = new Population(POP_SIZE, Px, Pm);
+
+        int newPopSize = 0;
+        while(newPopSize < POP_SIZE)
+        {
+            //tournament
+            ArrayList<Individual> tournamentGroup = this.getTournamentGroup(_tSize);
+            Individual bestIndividual = tournamentGroup.get(0);
+            for (int i = 1; i < _tSize; i++)
+            {
+                if (tournamentGroup.get(i).getAssignmentCost() < bestIndividual.getAssignmentCost())
+                {
+                    bestIndividual = tournamentGroup.get(i);
+                }
+            }
+            newPopulation.getIndividuals().add(new Individual(bestIndividual));
+
+            newPopSize++;
+        }
+
+        return newPopulation;
+    }
+
+    /**
+     * Selects a Individuals from this population and saves them in the new population for next generation
+     * Using a roulette wheel
+     * @return population with selected Individuals by roulette wheel
+     */
+    public Population selection()
     {
         Population newPopulation = new Population(POP_SIZE, Px, Pm);
 
@@ -145,8 +176,6 @@ public class Population
             rouletteProb[i] = indProd;
         }
 
-
-
         int newPopSize = 0;
         while(newPopSize < POP_SIZE)
         {
@@ -155,18 +184,6 @@ public class Population
             int index = Arrays.binarySearch(rouletteProb, randomFitness);
             index = Math.abs(index) - 1;
             newPopulation.getIndividuals().add(this.getIndividuals().get(index));
-
-            //tournament
-//            ArrayList<Individual> tournamentGroup = this.getTournamentGroup(_tSize);
-//            Individual bestIndividual = tournamentGroup.get(0);
-//            for (int i = 1; i < _tSize; i++)
-//            {
-//                if (tournamentGroup.get(i).getAssignmentCost() < bestIndividual.getAssignmentCost())
-//                {
-//                    bestIndividual = tournamentGroup.get(i);
-//                }
-//            }
-//            newPopulation.getIndividuals().add(new Individual(bestIndividual));
 
             newPopSize++;
         }
